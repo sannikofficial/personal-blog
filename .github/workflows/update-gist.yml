@@ -19,5 +19,5 @@ jobs:
           curl \
             -X PATCH \
             -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
-            -d "$(jq -n --arg content "$(cat $FILE_PATH)" '{"files": {"main.py": {"content": $content}}}')" \
+            -d "$(jq -n --arg content "$(cat $FILE_PATH)" '{"files": {"987503925.css": {"content": $content}}}')" \
             https://api.github.com/gists/$GIST_ID
