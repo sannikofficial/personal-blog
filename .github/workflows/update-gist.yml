@@ -5,17 +5,16 @@ on:
     branches:
       - main  # Ветка, на изменения в которой реагирует workflow
     paths:
-      - ${{ env.FILE_NAME }}  # Используем переменную для задания файла
+      - 987503925.css  # Файл, который нужно синхронизировать с Gist
 
 jobs:
   update-gist:
     runs-on: ubuntu-latest
-    env:
-      FILE_NAME: "987503925.css"  # Устанавливаем переменную среды для имени файла
     steps:
       - uses: actions/checkout@v3
       - name: Update Gist
         run: |
+          FILE_NAME="987503925.css"  # Задаём переменную для названия файла
           GIST_ID="37e89febe786225534a44b1336921518"  # Укажи ID своего Gist
           curl \
             -X PATCH \
