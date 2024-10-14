@@ -1,0 +1,23 @@
+name: Update Gist
+
+on:
+  push:
+    branches:
+      - main  # Ветка, на изменения в которой реагирует workflow
+    paths:
+      - main.py  # Файл, который нужно синхронизировать с Gist
+
+jobs:
+  update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update Gist
+        run: |
+          GIST_ID="37e89febe786225534a44b1336921518"  # Укажи ID твоего Gist
+          FILE_PATH="main.py"  # Путь к файлу в репозитории
+          curl \
+            -X PATCH \
+            -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+            -d "$(jq -n --arg content "$(cat $FILE_PATH)" '{"files": {"main.py": {"content": $content}}}')" \
+            https://api.github.com/gists/$GIST_ID
